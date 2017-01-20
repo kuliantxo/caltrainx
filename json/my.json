@@ -1,0 +1,85 @@
+[
+  {
+    "id": "itspayd",
+    "code": "60941dc3-86d0-4665-a0d5-13d139aad589",
+    "img": "/b7rhnzyuwv/Submitted20/LogoName.png",
+    "name": "ItsPayd",
+    "vendor": "ItsPayd",
+    "tagline": "Offer and Accept Payment Plans On Past Due Invoices Through Text/E-mail",
+    "rating": 2,
+    "reviews": 0
+  },{
+    "id": "jobber",
+    "code": "882e4765-b7a2-4fb7-974c-2259d3989918",
+    "pro": true,
+    "img": "/b7nve3mn73/Submitted43/LogoName.png",
+    "name": "Jobber",
+    "vendor": "Jobber",
+    "tagline": "Mobile Scheduling, Invoicing, CRM, Time Tracking for Service Companies",
+    "rating": 4.5,
+    "reviews": 43
+  },{
+    "id": "app-b7q2p99usq",
+    "code": "884e76da-d3c7-4c63-ac34-8ebeaca3da55",
+    "img": "/b7q2p99usq/Submitted21/LogoName.jpg",
+    "name": "Karbon",
+    "vendor": "Karbon Inc.",
+    "tagline": "Karbon is task management for accountants.",
+    "rating": 5,
+    "reviews": 9
+  },{
+    "id": "app-b7qz7rgmgb",
+    "code": "281f1e24-f9d5-42c0-b9d1-c0b0eb99c311",
+    "img": "/b7qz7rgmgb/Submitted26/LogoName.png",
+    "name": "KEEPEK",
+    "vendor": "KEEPEK Ltd.",
+    "tagline": "Business expense reports on the go",
+    "rating": 5,
+    "reviews": 1
+  },{
+    "id": "kickserv",
+    "code": "1ff3796d-4059-4a0a-b867-0819afaa9ac1",
+    "img": "/b7pjspuarj/Submitted24/LogoName.png",
+    "name": "Kickserv Field Service Software",
+    "vendor": "Kickserv",
+    "tagline": "The easiest way to run your service, hands down.",
+    "rating": 4.5,
+    "reviews": 3
+  },{
+    "id": "knowify",
+    "code": "f33f6267-5ecc-4984-8d3f-8b51f4fb6482",
+    "img": "/b7nmppqyvq/Submitted25/O-Knowify.png",
+    "name": "Knowify for Contractors",
+    "vendor": "Knowify LLC",
+    "tagline": "Job costing, contract management, change orders, and more for contractors.",
+    "rating": 5,
+    "reviews": 14
+  },{
+    "id": "kountapointofsale",
+    "code": "5cae9157-7710-4744-8f24-7fa26fde9b45",
+    "img": "/b7p47ctanc/Submitted12/Kounta_Branding_RGB_ColourWhite 150x150.png",
+    "name": "Kounta",
+    "vendor": "Kounta Inc",
+    "tagline": "Cloud based Point Of Sale Software for iPad, Android, Mac and Windows",
+    "rating": 5,
+    "reviews": 1
+  },{
+    "id": "app-b7qb36bk95",
+    "code": "0d18b215-e8e6-4a49-b66a-0d33abe068b1",
+    "img": "/b7qb36bk95/Submitted39/cloud6.png",
+    "name": "Label Connector",
+    "vendor": "Accuware Inc.",
+    "tagline": "Get your Labels done Quickly and Accurately. Free 14 day Trial!",
+    "rating": 2,
+    "reviews": 1
+  },{
+    "id": "app-b7qntmn4ee",
+    "code": "f1ae7301-35ac-4420-b0e7-6b5c8f4e62c9",
+    "img": "/b7qntmn4ee/Submitted34/LogoName.png",
+    "name": "Late Fee Manager",
+    "vendor": "Late Fee Manager",
+    "tagline": "&quot;Those who understand interest earn it. Those who don&#8217;t, pay it.&#8221; Einstein",
+    "rating": 5,
+    "reviews": 2
+  }
+]

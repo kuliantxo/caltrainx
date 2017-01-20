@@ -1,0 +1,42 @@
+[
+  '1099misce-file': {
+    code: '4220c271-51cd-4815-807e-ca64761af8c3',
+    img: '/b7nigcbq4n/Submitted15/tax1099-logo-qbapps.png',
+    name: '1099 MISC e-file by Tax1099.com',
+    vendor: 'by TechAtlantis, Inc',
+    tagline: 'E-File your year-end forms easily and quickly!',
+    rating: 5,
+    reviews: 3,
+    description: 'eRequisition™ uses the data from your QuickBooks Online company. Simply create a Purchase Requisition (PR) and send through a series of Approvals. Once the PR has been completely approved, a new Purchase Order will be created in QuickBooks.'
+  },
+  'quickbooks-online-with-oneandone': {
+    code: '7f65a34b-d516-4458-9704-148a570f6665',
+    img: '/b7qbvwdfda/Submitted7/oneandone-icon-150x150.png',
+    name: '1and1 by OneSaas',
+    vendor: 'by OneSaas',
+    tagline: 'Get 1and1 and QuickBooks Online happily teamed up',
+    rating: 2,
+    reviews: 0,
+    description: 'eRequisition™ uses the data from your QuickBooks Online company. Simply create a Purchase Requisition (PR) and send through a series of Approvals. Once the PR has been completely approved, a new Purchase Order will be created in QuickBooks.'
+  },
+  '3dcart-sync': {
+    code: 'e369eac7-2677-4182-9420-c24fa35e6830',
+    img: '/b7qau2kq5i/Submitted31/LogoName.png',
+    name: '3dcart Sync - Unify',
+    vendor: 'by Webgility, Inc.',
+    tagline: 'Sync Your 3dcart Store with QuickBooks',
+    rating: 5,
+    reviews: 1,
+    description: 'eRequisition™ uses the data from your QuickBooks Online company. Simply create a Purchase Requisition (PR) and send through a series of Approvals. Once the PR has been completely approved, a new Purchase Order will be created in QuickBooks.'
+  },
+  'get your due shipping refunds!': {
+    code: '64c016fc-7298-4c5d-b28a-779a45296a27',
+    img: '/b7n43ya7at/Submitted101/LogoName.png',
+    name: '71lbs: FedEx &amp; UPS Shipping Refunds',
+    vendor: 'by 71 Pounds, Inc.',
+    tagline: '71lbs puts (unexpected) FedEx/UPS monies into your bottom line.',
+    rating: 5,
+    reviews: 8,
+    description: 'eRequisition™ uses the data from your QuickBooks Online company. Simply create a Purchase Requisition (PR) and send through a series of Approvals. Once the PR has been completely approved, a new Purchase Order will be created in QuickBooks.'
+  }
+]

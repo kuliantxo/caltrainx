@@ -1,0 +1,37 @@
+{
+  "name": "apps_center",
+  "version": "0.0.1",
+  "description": "AppsCenter project.",
+  "scripts": {
+    "start": "webpack-dev-server --hot --progress --inline --colors",
+    "build": "webpack --progress --colors"
+  },
+  "author": "Julian Miqueo",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "image-webpack-loader": "^2.0.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "react": "^15.2.0",
+    "react-bootstrap-typeahead": "^0.8.1",
+    "react-dom": "^15.2.0",
+    "react-hot-loader": "^1.3.0",
+    "react-router": "^2.5.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react-boostrap-carousel": "^2.0.2",
+    "react-bootstrap": "^0.30.2",
+    "react-redux": "^4.4.5",
+    "whatwg-fetch": "^1.0.0"
+  }
+}

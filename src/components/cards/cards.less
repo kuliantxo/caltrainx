@@ -1,0 +1,38 @@
+.thumbnail-card {
+  overflow: hidden;
+  position: relative;
+  height: 325px;
+  img {
+    width: 100px;
+    height: 100px;
+    &.loader {
+      background: url(../../images/ajax-loader.gif) no-repeat center;
+      background-size: 40%;
+    }
+  }
+  .thumbnail-pro {
+    background-color: #00af42;
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+    position: absolute;
+    right: -50px;
+    top: -50px;
+    .glyphicon {
+      margin-top: 62px;
+      margin-left: 36px;
+      font-size: 30px;
+      transform: rotate(-45deg);
+      color: white;
+    }
+  }
+}
+.rating {
+  position: relative;
+  .glyphicon-star-half {
+    width: 50%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+  }
+}
