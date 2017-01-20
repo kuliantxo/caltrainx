@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import SearchBar from '../components/SearchBar.js';
-import CategoryDropdown from '../components/CategoryDropdown.js';
+//import CategoryDropdown from '../components/CategoryDropdown.js';
 // https://github.com/webpack/less-loader
 require("../../file.less");
 
@@ -29,8 +29,8 @@ var App = React.createClass({
             </div>
           </div>
         </nav>
-
-        <section class="search-bar">
+{/*
+        <section className="search-bar">
           <div className="container">
             <div className="row">
               <div className="col-sm-4">
@@ -41,7 +41,7 @@ var App = React.createClass({
               </div>
             </div>
           </div>
-        </section>
+        </section>*/}
         <section className="main">
           <div className="container">
             { this.props.children }
