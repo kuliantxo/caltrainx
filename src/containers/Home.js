@@ -17,7 +17,18 @@ console.log('json', json);
         console.log('parsing failed', ex)
       });
   },
+  handleSelect: function() {
+console.log('arguments', arguments);
+  },
   render() {
+    var data = this.state.stops || {};
+    var dropDownItem = Object.keys(data).map(function(key, index) {
+      return (
+        <MenuItem key={ index } eventKey={ key }>
+          { key }
+        </MenuItem>
+      );
+    });
     return(
       <div>
         <h4>Welcome!</h4>
@@ -28,12 +39,8 @@ console.log('json', json);
               From
             </Col>
             <Col sm={10}>
-              <DropdownButton bsStyle="default" title="Departure">
-                <MenuItem eventKey="1">Action</MenuItem>
-                <MenuItem eventKey="2">Another action</MenuItem>
-                <MenuItem eventKey="3" active>Active Item</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey="4">Separated link</MenuItem>
+              <DropdownButton id="dd1" bsStyle="default" title="Departure" onSelect={ this.handleSelect }>
+                { dropDownItem }
               </DropdownButton>
             </Col>
           </FormGroup>
@@ -43,12 +50,8 @@ console.log('json', json);
               To
             </Col>
             <Col sm={10}>
-              <DropdownButton bsStyle="default" title="Departure">
-                <MenuItem eventKey="1">Action</MenuItem>
-                <MenuItem eventKey="2">Another action</MenuItem>
-                <MenuItem eventKey="3" active>Active Item</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey="4">Separated link</MenuItem>
+              <DropdownButton id="dd2" bsStyle="default" title="Destination">
+                { dropDownItem }
               </DropdownButton>
             </Col>
           </FormGroup>
