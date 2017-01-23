@@ -1,36 +1,46 @@
 import React from 'react';
 import { Form, FormGroup, Col, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import CardsPagination from '../components/cards-pagination/CardsPagination.js';
+import { schedule } from '../services/home.js';
 
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      calendar: {},
-      calendar_dates: {},
-      stops: {},
-      routes: {},
+      calendar: null,
+      calendar_dates: null,
+      stops: null,
+      routes: null,
       result: {},
       fromTitle: 'Departure',
       toTitle: 'Destination'
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+console.log('componentWillMount calendar', this.state.calendar);
+console.log('componentWillMount calendar_dates', this.state.calendar_dates);
+console.log('componentWillMount stops', this.state.stops);
+console.log('componentWillMount routes', this.state.routes);
     const names = ["calendar", "calendar_dates", "stops", "routes"];
-console.log('this', this);
     names.forEach(function(name) {
       fetch(`/json/${ name }.json`)
         .then(function(response) {
           return response.json()
         }).then(function(json) {
-  console.log('json', json);
-  console.log('this', this);
           this.setState({[name]: json});
         }.bind(this)).catch(function(ex) {
           console.log('parsing failed', ex)
         });
     }.bind(this));
+  }
+
+  componentDidMount() {
+console.log('componentDidMount calendar', this.state.calendar);
+console.log('componentDidMount calendar_dates', this.state.calendar_dates);
+console.log('componentDidMount stops', this.state.stops);
+console.log('componentDidMount routes', this.state.routes);
+    schedule();
   }
 
   handleFromSelect(title) {
@@ -46,8 +56,21 @@ console.log('this', this);
   }
 
   render() {
+console.log('render calendar', this.state.calendar);
+console.log('render calendar_dates', this.state.calendar_dates);
+console.log('render stops', this.state.stops);
+console.log('render routes', this.state.routes);
+    let calendar = this.state.calendar;
+    let calendar_dates = this.state.calendar_dates;
     let stops = this.state.stops;
     let routes = this.state.routes;
+    if(!(calendar && calendar_dates && stops && routes)) {
+console.log('Im in');
+return(<div>Working</div>);
+    }
+    console.log('Im out');
+    schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
+
     let dropDownItem = Object.keys(stops).map(function(key, index) {
       return (
         <MenuItem key={ index } eventKey={ key }>
