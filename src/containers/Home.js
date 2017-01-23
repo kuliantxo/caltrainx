@@ -6,6 +6,8 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
+      calendar: {},
+      calendar_dates: {},
       stops: {},
       routes: {},
       result: {},
@@ -15,24 +17,20 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/json/stops.json')
-      .then(function(response) {
-        return response.json()
-      }).then(function(json) {
-console.log('json', json);
-        this.setState({stops: json});
-      }.bind(this)).catch(function(ex) {
-        console.log('parsing failed', ex)
-      });
-      fetch('/json/routes.json')
+    const names = ["calendar", "calendar_dates", "stops", "routes"];
+console.log('this', this);
+    names.forEach(function(name) {
+      fetch(`/json/${ name }.json`)
         .then(function(response) {
           return response.json()
         }).then(function(json) {
   console.log('json', json);
-          this.setState({routes: json});
+  console.log('this', this);
+          this.setState({[name]: json});
         }.bind(this)).catch(function(ex) {
           console.log('parsing failed', ex)
         });
+    }.bind(this));
   }
 
   handleFromSelect(title) {
