@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, Col, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Form, FormGroup, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import CardsPagination from '../components/cards-pagination/CardsPagination.js';
 import { schedule, second2str, time_relative } from '../services/home.js';
 
@@ -77,18 +77,16 @@ console.log('render routes', this.state.routes);
     });
     let resultItems = results.map(function(trip, index) {
       return (
-        <li>
-          <span class="departure">{ second2str(trip.departure_time) }</span>
-          <span class="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</span>
-          <span class="arrival">{ second2str(trip.arrival_time) }</span>
-        </li>
+        <ListGroupItem key={ index }>
+          <span className="departure">{ second2str(trip.departure_time) }</span>
+          <small className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</small>
+          <span className="arrival">{ second2str(trip.arrival_time) }</span>
+        </ListGroupItem>
       );
     });
     return(
       <div>
-        <h4>Welcome!</h4>
-
-        <Form horizontal>
+        <Form horizontal className="schedule-form">
           <FormGroup controlId="formHorizontalFrom">
             <Col componentClass={ControlLabel} sm={2}>
               From
@@ -111,21 +109,23 @@ console.log('render routes', this.state.routes);
             </Col>
           </FormGroup>
 
-          <button type="button">Reverse</button>
+          <Button bsStyle="link revert-btn"><span className="glyphicon glyphicon-refresh" aria-hidden="true"></span></Button>
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button type="button" onClick={ this.handleClick.bind(this, 'now')}>Now</Button>
-              <Button type="button" onClick={ this.handleClick.bind(this, 'weekday')}>Weekday</Button>
-              <Button type="button" onClick={ this.handleClick.bind(this, 'saturday')}>Saturday</Button>
-              <Button type="button" onClick={ this.handleClick.bind(this, 'sunday')}>Sunday</Button>
+              <ButtonGroup>
+                <Button onClick={ this.handleClick.bind(this, 'now')}>Now</Button>
+                <Button onClick={ this.handleClick.bind(this, 'weekday')}>Weekday</Button>
+                <Button onClick={ this.handleClick.bind(this, 'saturday')}>Saturday</Button>
+                <Button onClick={ this.handleClick.bind(this, 'sunday')}>Sunday</Button>
+              </ButtonGroup>
             </Col>
           </FormGroup>
         </Form>
 
-        <ul>
+        <ListGroup>
           { resultItems }
-        </ul>
+        </ListGroup>
       </div>
     );
   }

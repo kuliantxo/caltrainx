@@ -1,4 +1,5 @@
 import React from 'react';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import SearchBar from '../components/SearchBar.js';
 //import CategoryDropdown from '../components/CategoryDropdown.js';
@@ -9,44 +10,35 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
-        <nav className="navbar navbar-default">
-          <div className="container">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-            </div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">CaltrainX</a>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} href="#">Schedule</NavItem>
+            <NavItem eventKey={2} href="#">Map</NavItem>
+          </Nav>
+        </Navbar>
 
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav navbar-right">
-                <li><Link to="/">All Apps</Link></li>
-                <li><Link to="/my_apps">My Apps</Link></li>
-                <li><Link to="/todo">Todo</Link></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-{/*
-        <section className="search-bar">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-4">
-                <CategoryDropdown />
-              </div>
-              <div className="col-sm-8">
-                <SearchBar />
-              </div>
-            </div>
-          </div>
-        </section>*/}
         <section className="main">
           <div className="container">
             { this.props.children }
           </div>
         </section>
+
+        <footer>
+          <div className="container">
+            <div className="copyright">
+              &copy; CaltrainX 2017, Kuliantxo.<br/>
+              Designed by Julian Miqueo.
+            </div>
+            <div className="copyright">
+              Find more information at <a target="_blank" href="https://github.com/kuliantxo/caltrainx">Github</a>.
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
