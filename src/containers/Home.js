@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Col, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import CardsPagination from '../components/cards-pagination/CardsPagination.js';
-import { schedule } from '../services/home.js';
+import { schedule, second2str, time_relative } from '../services/home.js';
 
 class Home extends React.Component {
   constructor() {
@@ -11,7 +11,7 @@ class Home extends React.Component {
       calendar_dates: {},
       stops: {},
       routes: {},
-      result: {},
+      results: [],
       fromTitle: 'Departure',
       toTitle: 'Destination'
     };
@@ -56,7 +56,8 @@ console.log('componentDidMount routes', this.state.routes);
     let calendar_dates = this.state.calendar_dates;
     let stops = this.state.stops;
     let routes = this.state.routes;
-    schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
+    let results = schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
+    this.setState({ results: results });
   }
 
   render() {
@@ -65,7 +66,7 @@ console.log('render calendar_dates', this.state.calendar_dates);
 console.log('render stops', this.state.stops);
 console.log('render routes', this.state.routes);
     let stops = this.state.stops;
-    let routes = this.state.routes;
+    let results = this.state.results;
 
     let dropDownItem = Object.keys(stops).map(function(key, index) {
       return (
@@ -74,9 +75,13 @@ console.log('render routes', this.state.routes);
         </MenuItem>
       );
     });
-    let resultsItem = Object.keys(routes).map(function(key, index) {
+    let resultItems = results.map(function(trip, index) {
       return (
-        <li>{ key }</li>
+        <li>
+          <span class="departure">{ second2str(trip.departure_time) }</span>
+          <span class="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</span>
+          <span class="arrival">{ second2str(trip.arrival_time) }</span>
+        </li>
       );
     });
     return(
@@ -119,7 +124,7 @@ console.log('render routes', this.state.routes);
         </Form>
 
         <ul>
-          { this.resultsItem }
+          { resultItems }
         </ul>
       </div>
     );

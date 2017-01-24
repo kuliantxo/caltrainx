@@ -183,6 +183,7 @@ function schedule (calendar, calendar_dates, stops, routes, from, to) {
 console.log('trips', trips);
   // render_info(trips[0]);
   // render_result(trips);
+  return trips;
 }
 
-export { schedule };
+export { schedule, second2str, time_relative };
