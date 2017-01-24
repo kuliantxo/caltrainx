@@ -13,15 +13,12 @@ class Home extends React.Component {
       routes: {},
       results: [],
       fromTitle: 'Departure',
-      toTitle: 'Destination'
+      toTitle: 'Destination',
+      when: 'now'
     };
   }
 
   componentWillMount() {
-console.log('componentWillMount calendar', this.state.calendar);
-console.log('componentWillMount calendar_dates', this.state.calendar_dates);
-console.log('componentWillMount stops', this.state.stops);
-console.log('componentWillMount routes', this.state.routes);
     const names = ["calendar", "calendar_dates", "stops", "routes"];
     names.forEach(function(name) {
       fetch(`/json/${ name }.json`)
@@ -36,11 +33,6 @@ console.log('componentWillMount routes', this.state.routes);
   }
 
   componentDidMount() {
-console.log('componentDidMount calendar', this.state.calendar);
-console.log('componentDidMount calendar_dates', this.state.calendar_dates);
-console.log('componentDidMount stops', this.state.stops);
-console.log('componentDidMount routes', this.state.routes);
-    schedule();
   }
 
   handleFromSelect(title) {
@@ -51,20 +43,18 @@ console.log('componentDidMount routes', this.state.routes);
     this.setState({ toTitle: title });
   }
 
-  handleClick(title) {
+  handleClick(when) {
+console.log('julian when', when);
     let calendar = this.state.calendar;
     let calendar_dates = this.state.calendar_dates;
     let stops = this.state.stops;
     let routes = this.state.routes;
-    let results = schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
+    let results = schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle, this.state.when);
     this.setState({ results: results });
   }
 
   render() {
-console.log('render calendar', this.state.calendar);
-console.log('render calendar_dates', this.state.calendar_dates);
-console.log('render stops', this.state.stops);
-console.log('render routes', this.state.routes);
+console.log('julian render');
     let stops = this.state.stops;
     let results = this.state.results;
 
@@ -79,7 +69,7 @@ console.log('render routes', this.state.routes);
       return (
         <ListGroupItem key={ index }>
           <span className="departure">{ second2str(trip.departure_time) }</span>
-          <small className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</small>
+          <span className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</span>
           <span className="arrival">{ second2str(trip.arrival_time) }</span>
         </ListGroupItem>
       );
@@ -88,10 +78,10 @@ console.log('render routes', this.state.routes);
       <div>
         <Form horizontal className="schedule-form">
           <FormGroup controlId="formHorizontalFrom">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} xs={2}>
               From
             </Col>
-            <Col sm={10}>
+            <Col xs={10}>
               <DropdownButton id="dd1" bsStyle="default" title={ this.state.fromTitle } onSelect={ this.handleFromSelect.bind(this) }>
                 { dropDownItem }
               </DropdownButton>
@@ -99,20 +89,20 @@ console.log('render routes', this.state.routes);
           </FormGroup>
 
           <FormGroup controlId="formHorizontalTo">
-            <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} xs={2}>
               To
             </Col>
-            <Col sm={10}>
+            <Col xs={10}>
               <DropdownButton id="dd2" bsStyle="default" title={ this.state.toTitle } onSelect={ this.handleToSelect.bind(this) }>
                 { dropDownItem }
               </DropdownButton>
             </Col>
           </FormGroup>
 
-          <Button bsStyle="link revert-btn"><span className="glyphicon glyphicon-refresh" aria-hidden="true"></span></Button>
+          <Button bsStyle="link" className="revert-btn"><span className="glyphicon glyphicon-refresh" aria-hidden="true"></span></Button>
 
           <FormGroup>
-            <Col smOffset={2} sm={10}>
+            <Col xsOffset={2} xs={10}>
               <ButtonGroup>
                 <Button onClick={ this.handleClick.bind(this, 'now')}>Now</Button>
                 <Button onClick={ this.handleClick.bind(this, 'weekday')}>Weekday</Button>
@@ -123,7 +113,7 @@ console.log('render routes', this.state.routes);
           </FormGroup>
         </Form>
 
-        <ListGroup>
+        <ListGroup className="schedule-output">
           { resultItems }
         </ListGroup>
       </div>

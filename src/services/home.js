@@ -50,15 +50,10 @@ function time_relative (from, to) {
   return Math.round((to - from) / 60); // in minute
 }
 
-function is_now () {
-  // return $('.when-button.selected').val() === "now";
-  return true;
-}
-
-function get_service_ids (calendar, calendar_dates) {
+function get_service_ids (calendar, calendar_dates, when) {
   var date = now_date();
 
-  var selected_schedule = 'now';//$('.when-button.selected').val();
+  var selected_schedule = when;
   var target_schedule = selected_schedule;
   if (target_schedule === 'now') {
     // getDay is "0 for Sunday", map to "0 for Monday"
@@ -105,10 +100,10 @@ function get_service_ids (calendar, calendar_dates) {
   return service_ids;
 }
 
-function get_available_services (routes, calendar, calendar_dates) {
+function get_available_services (routes, calendar, calendar_dates, when) {
   var availables = {};
 
-  get_service_ids(calendar, calendar_dates).forEach(function(service_id) {
+  get_service_ids(calendar, calendar_dates, when).forEach(function(service_id) {
     Object.keys(routes).forEach(function(route_id) {
       var services = routes[route_id];
       var trips = services[service_id];
@@ -140,7 +135,7 @@ function compare_trip (a, b) {
   return a.departure_time - b.departure_time;
 }
 
-function get_trips (services, from_ids, to_ids) {
+function get_trips (services, from_ids, to_ids, when) {
   var result = [];
 
   Object.keys(services)
@@ -163,7 +158,7 @@ function get_trips (services, from_ids, to_ids) {
             return;
           }
 
-          if (!is_now() || trip[from_index][1] > now()) {
+          if (when !== 'now' || trip[from_index][1] > now()) {
             result.push({
               departure_time: trip[from_index][1],
               arrival_time: trip[to_index][1]
@@ -175,11 +170,11 @@ function get_trips (services, from_ids, to_ids) {
   return result.sort(compare_trip);
 }
 
-function schedule (calendar, calendar_dates, stops, routes, from, to) {
+function schedule (calendar, calendar_dates, stops, routes, from, to, when) {
   var from_ids = stops[from],
       to_ids = stops[to],
-      services = get_available_services(routes, calendar, calendar_dates);
-  var trips = get_trips(services, from_ids, to_ids);
+      services = get_available_services(routes, calendar, calendar_dates, when);
+  var trips = get_trips(services, from_ids, to_ids, when);
 console.log('trips', trips);
   // render_info(trips[0]);
   // render_result(trips);
