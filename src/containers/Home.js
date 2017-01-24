@@ -7,10 +7,10 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      calendar: null,
-      calendar_dates: null,
-      stops: null,
-      routes: null,
+      calendar: {},
+      calendar_dates: {},
+      stops: {},
+      routes: {},
       result: {},
       fromTitle: 'Departure',
       toTitle: 'Destination'
@@ -52,7 +52,11 @@ console.log('componentDidMount routes', this.state.routes);
   }
 
   handleClick(title) {
-//    this.setState({ toTitle: title });
+    let calendar = this.state.calendar;
+    let calendar_dates = this.state.calendar_dates;
+    let stops = this.state.stops;
+    let routes = this.state.routes;
+    schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
   }
 
   render() {
@@ -60,16 +64,8 @@ console.log('render calendar', this.state.calendar);
 console.log('render calendar_dates', this.state.calendar_dates);
 console.log('render stops', this.state.stops);
 console.log('render routes', this.state.routes);
-    let calendar = this.state.calendar;
-    let calendar_dates = this.state.calendar_dates;
     let stops = this.state.stops;
     let routes = this.state.routes;
-    if(!(calendar && calendar_dates && stops && routes)) {
-console.log('Im in');
-return(<div>Working</div>);
-    }
-    console.log('Im out');
-    schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle);
 
     let dropDownItem = Object.keys(stops).map(function(key, index) {
       return (
