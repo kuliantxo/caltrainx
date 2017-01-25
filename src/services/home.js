@@ -140,10 +140,12 @@ function get_trips (services, from_ids, to_ids, when) {
 
   Object.keys(services)
     .forEach(function(service_id) {
+console.log('services', services);
       var trips = services[service_id];
       Object.keys(trips)
         .forEach(function(trip_id) {
           var trip = trips[trip_id];
+console.log('trip', trip);
           var trip_stop_ids = trip.map(function(t) { return t[0]; });
           var from_indexes = search_index(trip_stop_ids, from_ids);
           var to_indexes = search_index(trip_stop_ids, to_ids);
@@ -161,12 +163,15 @@ function get_trips (services, from_ids, to_ids, when) {
           if (when !== 'now' || trip[from_index][1] > now()) {
             result.push({
               departure_time: trip[from_index][1],
-              arrival_time: trip[to_index][1]
+              arrival_time: trip[to_index][1],
+              service: service_id,
+              train: trip_id
             });
           }
         });
     });
 
+console.log('result', result);
   return result.sort(compare_trip);
 }
 

@@ -78,8 +78,14 @@ console.log('julian render state', this.state);
     };
 
     let resultItems = results.map(function(trip, index) {
+      let service = 'local';
+      if (/Li/.test(trip.service)) {
+        service = 'limited';
+      } else if (/Bu/.test(trip.service)) {
+        service = 'bullet';
+      }
       return (
-        <ListGroupItem key={ index }>
+        <ListGroupItem key={ index } className={ service }>
           <span className="departure">{ second2str(trip.departure_time) }</span>
           <span className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</span>
           <span className="arrival">{ second2str(trip.arrival_time) }</span>
