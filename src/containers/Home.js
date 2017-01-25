@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Form, FormGroup, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import CardsPagination from '../components/cards-pagination/CardsPagination.js';
-import { schedule, second2str, time_relative } from '../services/home.js';
+import { schedule, second2str, time_relative, now, is_defined } from '../services/home.js';
 
 class Home extends React.Component {
   constructor() {
@@ -44,19 +44,22 @@ class Home extends React.Component {
   }
 
   handleClick(when) {
-console.log('julian when', when);
     let calendar = this.state.calendar;
     let calendar_dates = this.state.calendar_dates;
     let stops = this.state.stops;
     let routes = this.state.routes;
-    let results = schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle, this.state.when);
-    this.setState({ results: results });
+    let results = schedule(calendar, calendar_dates, stops, routes, this.state.fromTitle, this.state.toTitle, when);
+    this.setState({
+      when: when,
+      results: results
+    });
   }
 
   render() {
-console.log('julian render');
+console.log('julian render state', this.state);
     let stops = this.state.stops;
     let results = this.state.results;
+    let when = this.state.when;
 
     let dropDownItem = Object.keys(stops).map(function(key, index) {
       return (
@@ -65,6 +68,15 @@ console.log('julian render');
         </MenuItem>
       );
     });
+
+    // const info = <div>pepe { when } - { (when === 'now') ? 'true' : 'false' } maria</div>;
+    let info = function () {
+      if (when === 'now' && results.length) {
+        let nextRelative = time_relative(now(), results[0].departure_time);
+        return <div className="info">Next train: { nextRelative } min</div>;
+      }
+    };
+
     let resultItems = results.map(function(trip, index) {
       return (
         <ListGroupItem key={ index }>
@@ -74,6 +86,7 @@ console.log('julian render');
         </ListGroupItem>
       );
     });
+
     return(
       <div>
         <Form horizontal className="schedule-form">
@@ -99,7 +112,7 @@ console.log('julian render');
             </Col>
           </FormGroup>
 
-          <Button bsStyle="link" className="revert-btn"><span className="glyphicon glyphicon-refresh" aria-hidden="true"></span></Button>
+          <Button bsStyle="link" className="revert-btn"><span className="glyphicon glyphicon-sort" aria-hidden="true"></span></Button>
 
           <FormGroup>
             <Col xsOffset={2} xs={10}>
@@ -112,6 +125,8 @@ console.log('julian render');
             </Col>
           </FormGroup>
         </Form>
+
+        { info() }
 
         <ListGroup className="schedule-output">
           { resultItems }

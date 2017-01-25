@@ -181,4 +181,4 @@ console.log('trips', trips);
   return trips;
 }
 
-export { schedule, second2str, time_relative };
+export { schedule, second2str, time_relative, now, is_defined };

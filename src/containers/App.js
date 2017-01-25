@@ -13,7 +13,7 @@ var App = React.createClass({
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#">CaltrainX</a>
+              <a href="#">Cal<span>train</span>X</a>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
