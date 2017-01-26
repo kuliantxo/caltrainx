@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Form, FormGroup, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Form, FormGroup, Row, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import CardsPagination from '../components/cards-pagination/CardsPagination.js';
 import { schedule, second2str, time_relative, now, is_defined } from '../services/home.js';
 
@@ -86,9 +86,12 @@ console.log('julian render state', this.state);
       }
       return (
         <ListGroupItem key={ index } className={ service }>
-          <span className="departure">{ second2str(trip.departure_time) }</span>
-          <span className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</span>
-          <span className="arrival">{ second2str(trip.arrival_time) }</span>
+        <Row>
+          <Col xs={3} className="departure">{ second2str(trip.departure_time) }</Col>
+          <Col xs={3} className="duration">{ time_relative(trip.departure_time, trip.arrival_time) } min</Col>
+          <Col xs={3} className="arrival">{ second2str(trip.arrival_time) }</Col>
+          <Col xs={3} className="train">{ trip.train }</Col>
+          </Row>
         </ListGroupItem>
       );
     });
