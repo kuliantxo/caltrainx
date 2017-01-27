@@ -1,6 +1,5 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Form, FormGroup, Row, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
-import CardsPagination from '../components/cards-pagination/CardsPagination.js';
 import { schedule, second2str, time_relative, now, is_defined } from '../services/home.js';
 
 class Home extends React.Component {
