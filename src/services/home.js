@@ -140,12 +140,10 @@ function get_trips (services, from_ids, to_ids, when) {
 
   Object.keys(services)
     .forEach(function(service_id) {
-console.log('services', services);
       var trips = services[service_id];
       Object.keys(trips)
         .forEach(function(trip_id) {
           var trip = trips[trip_id];
-console.log('trip', trip);
           var trip_stop_ids = trip.map(function(t) { return t[0]; });
           var from_indexes = search_index(trip_stop_ids, from_ids);
           var to_indexes = search_index(trip_stop_ids, to_ids);
@@ -171,15 +169,15 @@ console.log('trip', trip);
         });
     });
 
-console.log('result', result);
   return result.sort(compare_trip);
 }
 
 function schedule (calendar, calendar_dates, stops, routes, from, to, when) {
-  var from_ids = stops[from],
+  let from_ids = stops[from],
       to_ids = stops[to],
       services = get_available_services(routes, calendar, calendar_dates, when);
-  var trips = get_trips(services, from_ids, to_ids, when);
+console.log('services', services);
+  let trips = get_trips(services, from_ids, to_ids, when);
 console.log('trips', trips);
   // render_info(trips[0]);
   // render_result(trips);

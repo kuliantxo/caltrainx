@@ -15,8 +15,8 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    let width = 450,
-      height = 450;
+    let width = 580,
+      height = 600;
 
     // set projection
     let projection = d3.geo.mercator();
@@ -26,9 +26,8 @@ class Map extends React.Component {
       .projection(projection);
 
     d3.json("/json/Bay_Area_Cities_topo.json", function(error, topo) {
-      console.log('topo', topo);
     	let zones = feature(topo, topo.objects.Bay_Area).features;
-console.log('zones', zones);
+
     	// set projection parameters
     	projection
         .scale(30000)
@@ -44,7 +43,7 @@ console.log('zones', zones);
         .data(zones).enter()
         .append("path")
         .attr("class", "feature")
-        .style("fill", "steelblue")
+        .style("fill", "khaki")
         .attr("d", path);
 
       fetch(`/json/stops.json`)
@@ -53,15 +52,20 @@ console.log('zones', zones);
         }).then(function(json) {
           let a = [];
           Object.keys(json).forEach(function(name) {
-            a.push([json[name][3],json[name][2]]);
+            a.push([json[name][3],json[name][2],name]);
           });
           svg.selectAll("circle")
             .data(a).enter()
             .append("circle")
-            .attr("cx", function (d) { console.log('pro', projection(d)); return projection(d)[0]; })
+            .attr("cx", function (d) { return projection(d)[0]; })
             .attr("cy", function (d) { return projection(d)[1]; })
-            .attr("r", "2px")
-            .attr("fill", "#666");
+            .attr("r", "3px")
+            .attr("stroke", "darkgray")
+            .attr("fill", "lightgray")
+            .append("svg:title")
+            .text(function(d) {
+              return d[2];
+            });
         }.bind(this)).catch(function(ex) {
           console.log('parsing failed', ex)
         });
