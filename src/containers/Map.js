@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup, ListGroupItem, Form, FormGroup, Row, Col, ControlLabel, Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
-import { schedule, second2str, time_relative, now, is_defined } from '../services/home.js';
+import { location, second2str, time_relative, now, is_defined } from '../services/home.js';
 import d3 from 'd3';
 import { feature } from 'topojson';
 
@@ -8,6 +8,11 @@ class Map extends React.Component {
   constructor() {
     super();
     this.state = {
+      calendar: {},
+      calendar_dates: {},
+      stops: {},
+      routes: {},
+      results: []
     };
   }
 
@@ -15,6 +20,18 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    const names = ["calendar", "calendar_dates", "stops", "routes"];
+    names.forEach(function(name) {
+      fetch(`/json/${ name }.json`)
+        .then(function(response) {
+          return response.json()
+        }).then(function(json) {
+          this.setState({[name]: json});
+        }.bind(this)).catch(function(ex) {
+          console.log('parsing failed', ex)
+        });
+    }.bind(this));
+
     let width = 580,
       height = 600;
 
@@ -72,7 +89,27 @@ class Map extends React.Component {
     });
   }
 
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+  }
+
   render() {
+    let calendar = this.state.calendar;
+    let calendar_dates = this.state.calendar_dates;
+    let stops = this.state.stops;
+    let routes = this.state.routes;
+    let results = {};
+
+    console.log('state', this.state);
+    if (!this.isEmpty(calendar) && !this.isEmpty(calendar_dates) && !this.isEmpty(stops) && !this.isEmpty(routes)) {
+      results = location(calendar, calendar_dates, stops, routes);
+    }
+    console.log('results', results);
+
     return(
       <div className="map"></div>
     );

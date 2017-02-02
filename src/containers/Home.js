@@ -18,6 +18,9 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
+  }
+
+  componentDidMount() {
     const names = ["calendar", "calendar_dates", "stops", "routes"];
     names.forEach(function(name) {
       fetch(`/json/${ name }.json`)
@@ -29,9 +32,6 @@ class Home extends React.Component {
           console.log('parsing failed', ex)
         });
     }.bind(this));
-  }
-
-  componentDidMount() {
   }
 
   handleFromSelect(title) {
@@ -55,7 +55,6 @@ class Home extends React.Component {
   }
 
   render() {
-console.log('julian render state', this.state);
     let stops = this.state.stops;
     let results = this.state.results;
     let when = this.state.when;
