@@ -176,15 +176,11 @@ function schedule (calendar, calendar_dates, stops, routes, from, to, when) {
   let from_ids = stops[from],
       to_ids = stops[to],
       services = get_available_services(routes, calendar, calendar_dates, when);
-console.log('services', services);
   let trips = get_trips(services, from_ids, to_ids, when);
-console.log('trips', trips);
-  // render_info(trips[0]);
-  // render_result(trips);
   return trips;
 }
 
-function get_locations (services) {
+function get_locations (services, stops) {
   var result = [];
 
   Object.keys(services)
@@ -193,52 +189,26 @@ function get_locations (services) {
       Object.keys(routes)
         .forEach(function(route_id) {
           let route = routes[route_id];
-          // let currentRoute = route.filter(function(r) {
-          //   return r[1] > now();
-          // });
+
           for(let i = 0, l = route.length; i < l; i++) {
             if (route[0][1] < now() && route[i][1] > now()) {
-              console.log('currentRoute', route_id, route[i]);
+              Object.keys(stops).forEach(function(stop_id) {
+                if(stops[stop_id].indexOf(route[i][0]) >= 0) {
+                  result.push([stops[stop_id][2], stops[stop_id][3], route_id]);
+                }
+              });
               break;
             }
           }
-/*
-          var trip_stop_ids = trip.map(function(t) { return t[0]; });
-          var from_indexes = search_index(trip_stop_ids, from_ids);
-          var to_indexes = search_index(trip_stop_ids, to_ids);
-          if (!is_defined(from_indexes) || !is_defined(to_indexes) ||
-              from_indexes.length === 0 || to_indexes.length === 0) {
-            return;
-          }
-          var from_index = Math.min.apply(this, from_indexes);
-          var to_index = Math.max.apply(this, to_indexes);
-          // must be in order
-          if (from_index >= to_index) {
-            return;
-          }
-
-          if (when !== 'now' || trip[from_index][1] > now()) {
-            result.push({
-              departure_time: trip[from_index][1],
-              arrival_time: trip[to_index][1],
-              service: service_id,
-              train: trip_id
-            });
-          }
-*/
         });
     });
 
-  return result.sort(compare_trip);
+  return result;
 }
 
 function location (calendar, calendar_dates, stops, routes) {
   let services = get_available_services(routes, calendar, calendar_dates, 'now');
-console.log('services', services);
-  let locations = get_locations(services);
-console.log('locations', locations);
-  // render_info(trips[0]);
-  // render_result(trips);
+  let locations = get_locations(services, stops);
   return locations;
 }
 
