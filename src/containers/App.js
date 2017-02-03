@@ -2,9 +2,6 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
-import SearchBar from '../components/SearchBar.js';
-//import CategoryDropdown from '../components/CategoryDropdown.js';
-// https://github.com/webpack/less-loader
 require("../../file.less");
 
 var App = React.createClass({

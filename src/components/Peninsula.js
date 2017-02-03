@@ -29,45 +29,44 @@ class Peninsula extends React.Component {
         stops = this.props.stops,
         routes = this.props.routes;
 
-    	// set projection parameters
-    	projection
-        .scale(30000)
-        .center([-121.7, 37.5]);
+  	// set projection parameters
+  	projection
+      .scale(30000)
+      .center([-121.7, 37.5]);
 
-      // create svg variable
-      let svg = d3.select(".map").append("svg")
-				.attr("width", width)
-				.attr("height", height);
+    // create svg variable
+    let svg = d3.select(".map").append("svg")
+			.attr("width", width)
+			.attr("height", height);
 
-    	// add zones from topojson
-    	svg.selectAll("path")
-        .data(zones).enter()
-        .append("path")
-        .attr("class", "feature")
-        .style("fill", "khaki")
-        .attr("d", path);
+  	// add zones from topojson
+  	svg.selectAll("path")
+      .data(zones).enter()
+      .append("path")
+      .attr("class", "feature")
+      .style("fill", "khaki")
+      .attr("d", path);
 
-        let a = [];
+      let a = [];
 
-        Object.keys(stops).forEach(function(stop) {
-          a.push([stops[stop][2],stops[stop][3],stop]);
+      Object.keys(stops).forEach(function(stop) {
+        a.push([stops[stop][2],stops[stop][3],stop]);
+      });
+
+      svg.selectAll("circle")
+        .data(a).enter()
+        .append("circle")
+        .attr("cx", function (d) { return projection(d)[0]; })
+        .attr("cy", function (d) { return projection(d)[1]; })
+        .attr("r", "3px")
+        .attr("stroke", "darkgray")
+        .attr("fill", "lightgray")
+        .append("svg:title")
+        .text(function(d) {
+          return d[2];
         });
 
-console.log('a', a);
-        svg.selectAll("circle")
-          .data(a).enter()
-          .append("circle")
-          .attr("cx", function (d) { return projection(d)[0]; })
-          .attr("cy", function (d) { return projection(d)[1]; })
-          .attr("r", "3px")
-          .attr("stroke", "darkgray")
-          .attr("fill", "lightgray")
-          .append("svg:title")
-          .text(function(d) {
-            return d[2];
-          });
-
-        let results = location(calendar, calendar_dates, stops, routes);
+      function update(results) {
 console.log('results', results);
         svg.selectAll("rect")
           .data(results).enter()
@@ -82,6 +81,13 @@ console.log('results', results);
           .text(function(d) {
             return d[2];
           });
+      }
+
+      update(location(calendar, calendar_dates, stops, routes));
+
+      setInterval(function() {
+        update(location(calendar, calendar_dates, stops, routes));
+      }, 20000);
     }.bind(this));
   }
 
