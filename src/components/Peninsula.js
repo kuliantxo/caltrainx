@@ -68,26 +68,36 @@ class Peninsula extends React.Component {
 
       function update(results) {
 console.log('results', results);
-        svg.selectAll("rect")
-          .data(results).enter()
-          .append("rect")
+        let selection = svg.selectAll("rect")
+          .data(results)
           .attr("x", function (d) { return projection(d)[0]; })
           .attr("y", function (d) { return projection(d)[1]; })
           .attr("width", "4px")
           .attr("height", "4px")
           .attr("stroke", "red")
-          .attr("fill", "orange")
+          .attr("fill", "orange");
+
+        selection.enter()
+          .append("rect")
+          .attr("x", function (d) { return projection(d)[0]; })
+          .attr("y", function (d) { return projection(d)[1]; })
+          .attr("width", "4px")
+          .attr("height", "4px")
+          .attr("stroke", "green")
+          .attr("fill", "green")
           .append("svg:title")
           .text(function(d) {
             return d[2];
           });
+
+        selection.exit().remove();
       }
 
       update(location(calendar, calendar_dates, stops, routes));
 
       setInterval(function() {
         update(location(calendar, calendar_dates, stops, routes));
-      }, 20000);
+      }, 10000);
     }.bind(this));
   }
 
