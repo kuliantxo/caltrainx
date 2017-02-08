@@ -68,21 +68,21 @@ class Peninsula extends React.Component {
 
       function update(results) {
 console.log('results', results);
-        let selection = svg.selectAll("rect")
+        let selection = svg.selectAll("path.train")
           .data(results)
-          .attr("x", function (d) { return projection(d)[0]; })
-          .attr("y", function (d) { return projection(d)[1]; })
-          .attr("width", "4px")
-          .attr("height", "4px")
+          // .attr("class", "train")
+          .attr('d', function(d) {
+            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + ' l 4 8 l -8 0 z';
+          })
           .attr("stroke", "red")
           .attr("fill", "orange");
 
         selection.enter()
-          .append("rect")
-          .attr("x", function (d) { return projection(d)[0]; })
-          .attr("y", function (d) { return projection(d)[1]; })
-          .attr("width", "4px")
-          .attr("height", "4px")
+          .append("path")
+          .attr("class", "train")
+          .attr('d', function(d) {
+            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + ' l 4 8 l -8 0 z';
+          })
           .attr("stroke", "green")
           .attr("fill", "green")
           .append("svg:title")
