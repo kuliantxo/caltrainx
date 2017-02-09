@@ -181,7 +181,7 @@ function schedule (calendar, calendar_dates, stops, routes, from, to, when) {
 }
 
 function get_locations (services, stops) {
-  var result = [];
+  var result = [[],[]];
 
   Object.keys(services)
     .forEach(function(service_id) {
@@ -193,8 +193,12 @@ function get_locations (services, stops) {
           for(let i = 0, l = route.length; i < l; i++) {
             if (route[0][1] < now() && route[i][1] > now()) {
               Object.keys(stops).forEach(function(stop_id) {
-                if(stops[stop_id].indexOf(route[i][0]) >= 0) {
-                  result.push([stops[stop_id][2], stops[stop_id][3], route_id]);
+                if(stops[stop_id].indexOf(route[i-1][0]) >= 0) {
+                  if (!!(parseInt(route_id)%2)) {
+                    result[0].push([stops[stop_id][2], stops[stop_id][3], route_id]);
+                  } else {
+                    result[1].push([stops[stop_id][2], stops[stop_id][3], route_id]);
+                  }
                 }
               });
               break;

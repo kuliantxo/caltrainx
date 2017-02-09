@@ -66,22 +66,27 @@ class Peninsula extends React.Component {
           return d[2];
         });
 
-      function update(results) {
+      function update(results, direction = 'north') {
 console.log('results', results);
-        let selection = svg.selectAll("path.train")
+        let chunck = ' l 4 8 l -8 0 z';
+        if (direction == 'south') {
+          chunck = ' l 4 -8 l -8 0 z';
+        }
+
+        let selection = svg.selectAll("path."+direction)
           .data(results)
           // .attr("class", "train")
           .attr('d', function(d) {
-            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + ' l 4 8 l -8 0 z';
+            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + chunck;
           })
           .attr("stroke", "red")
           .attr("fill", "orange");
 
         selection.enter()
           .append("path")
-          .attr("class", "train")
+          .attr("class", direction)
           .attr('d', function(d) {
-            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + ' l 4 8 l -8 0 z';
+            return 'M ' + projection(d)[0] +' '+ projection(d)[1] + chunck;
           })
           .attr("stroke", "green")
           .attr("fill", "green")
@@ -93,10 +98,12 @@ console.log('results', results);
         selection.exit().remove();
       }
 
-      update(location(calendar, calendar_dates, stops, routes));
+      update(location(calendar, calendar_dates, stops, routes)[0]), 'north';
+      update(location(calendar, calendar_dates, stops, routes)[1], 'south');
 
       setInterval(function() {
-        update(location(calendar, calendar_dates, stops, routes));
+        update(location(calendar, calendar_dates, stops, routes)[0]), 'north';
+        update(location(calendar, calendar_dates, stops, routes)[1], 'south');
       }, 10000);
     }.bind(this));
   }
