@@ -212,6 +212,7 @@ function get_locations (services, stops) {
 
 function location (calendar, calendar_dates, stops, routes) {
   let services = get_available_services(routes, calendar, calendar_dates, 'now');
+console.log('services', services);
   let locations = get_locations(services, stops);
   return locations;
 }

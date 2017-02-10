@@ -67,6 +67,7 @@ class Peninsula extends React.Component {
         });
 
       function update(results, direction = 'north') {
+console.log(results.map(function(r){return r[2]}));
         let chunck = ' l 4 8 l -8 0 z';
         let position = [-34,8];
         if (direction == 'south') {
@@ -76,7 +77,7 @@ class Peninsula extends React.Component {
 
         let selection = svg.selectAll("path."+direction)
           .data(results)
-          // .attr("class", "train")
+          .attr("class", direction)
           .attr('d', function(d) {
             return 'M ' + projection(d)[0] +' '+ projection(d)[1] + chunck;
           })
@@ -90,38 +91,37 @@ class Peninsula extends React.Component {
             return 'M ' + projection(d)[0] +' '+ projection(d)[1] + chunck;
           })
           .attr("stroke", "red")
-          .attr("fill", "red")
-          .append("svg:title")
-          .text(function(d) {
-            return d[2];
-          });
+          .attr("fill", "red");
 
         selection.exit().remove();
 
         let text = svg.selectAll("text."+direction)
-            .data(results)
-            .attr("x", function (d) { return projection(d)[0] + position[0] })
-            .attr("y", function (d) { return projection(d)[1] + position[1] })
-            .attr("fill", "red");
+          .data(results)
+          .attr("class", direction)
+          .text(function (d) { return d[2] })
+          .attr("x", function (d) { return projection(d)[0] + position[0] })
+          .attr("y", function (d) { return projection(d)[1] + position[1] })
+          .attr("fill", "red");
 
-          text.enter()
-            .append("text")
-            .attr("class", direction)
-            .text(function (d) { return d[2] })
-            .attr("x", function (d) { return projection(d)[0] + position[0] })
-            .attr("y", function (d) { return projection(d)[1] + position[1] })
-            .attr("fill", "red");
-
+        text.enter()
+          .append("text")
+          .attr("class", direction)
+          .text(function (d) { return d[2] })
+          .attr("x", function (d) { return projection(d)[0] + position[0] })
+          .attr("y", function (d) { return projection(d)[1] + position[1] })
+          .attr("fill", "red");
 
         text.exit().remove();
       }
 
-      update(location(calendar, calendar_dates, stops, routes)[0]), 'north';
-      update(location(calendar, calendar_dates, stops, routes)[1], 'south');
+      let loc = location(calendar, calendar_dates, stops, routes);
+      update(loc[0]), 'north';
+      update(loc[1], 'south');
 
       setInterval(function() {
-        update(location(calendar, calendar_dates, stops, routes)[0]), 'north';
-        update(location(calendar, calendar_dates, stops, routes)[1], 'south');
+        loc = location(calendar, calendar_dates, stops, routes);
+        update(loc[0]), 'north';
+        update(loc[1], 'south');
       }, 10000);
     }.bind(this));
   }
