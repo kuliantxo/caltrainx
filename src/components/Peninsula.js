@@ -56,8 +56,8 @@ class Peninsula extends React.Component {
       svg.selectAll("circle")
         .data(a).enter()
         .append("circle")
-        .attr("cx", function (d) { return projection(d)[0]; })
-        .attr("cy", function (d) { return projection(d)[1]; })
+        .attr("cx", function (d) { return projection(d)[0] })
+        .attr("cy", function (d) { return projection(d)[1] })
         .attr("r", "3px")
         .attr("stroke", "darkgray")
         .attr("fill", "lightgray")
@@ -67,10 +67,11 @@ class Peninsula extends React.Component {
         });
 
       function update(results, direction = 'north') {
-console.log('results', results);
         let chunck = ' l 4 8 l -8 0 z';
+        let position = [-34,8];
         if (direction == 'south') {
           chunck = ' l 4 -8 l -8 0 z';
+          position = [10,2];
         }
 
         let selection = svg.selectAll("path."+direction)
@@ -88,14 +89,31 @@ console.log('results', results);
           .attr('d', function(d) {
             return 'M ' + projection(d)[0] +' '+ projection(d)[1] + chunck;
           })
-          .attr("stroke", "green")
-          .attr("fill", "green")
+          .attr("stroke", "red")
+          .attr("fill", "red")
           .append("svg:title")
           .text(function(d) {
             return d[2];
           });
 
         selection.exit().remove();
+
+        let text = svg.selectAll("text."+direction)
+            .data(results)
+            .attr("x", function (d) { return projection(d)[0] + position[0] })
+            .attr("y", function (d) { return projection(d)[1] + position[1] })
+            .attr("fill", "red");
+
+          text.enter()
+            .append("text")
+            .attr("class", direction)
+            .text(function (d) { return d[2] })
+            .attr("x", function (d) { return projection(d)[0] + position[0] })
+            .attr("y", function (d) { return projection(d)[1] + position[1] })
+            .attr("fill", "red");
+
+
+        text.exit().remove();
       }
 
       update(location(calendar, calendar_dates, stops, routes)[0]), 'north';
